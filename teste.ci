@@ -1,0 +1,26 @@
+mainmodule teste {
+	readonly CProxy_Main mainProxy;
+	readonly unsigned long intOpByMs;
+	readonly unsigned long floatOpByMs;
+	readonly int numberOfTasks;
+	readonly int numberOfIterations;
+
+	message Message {
+		char data[];
+	};
+
+	mainchare Main {
+		entry Main(CkArgMsg *m);
+		entry void endIteration(CkReductionMsg *msg);
+		entry void receiveInfo(int task, int iteration, int pu, double workTime, int opType, int load, int size, int msgsSent, int msgsReceived);
+		entry void resumeFromLB();
+	};
+
+	array [1D] Task {
+		entry Task();
+		entry void waitForLB();
+		entry void startWorking();
+		entry void receiveMessage(Message *msg);
+		entry void getInfo();
+	};
+}
